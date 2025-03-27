@@ -1,0 +1,36 @@
+@startuml
+concise "v1.0.0" as v1 
+concise "v2.0.0" as v2 
+concise "v3.0.0" as v3 
+scale 31536000 as 40 pixels
+use date format "yy-MM"
+'#scale 6 as 100 pixels
+
+@2025/01/01
+v1 is draft
+v2 is proposed
+
+@2025/07/01
+v1 is active
+v2 is draft
+v3 is proposed
+
+@2026/01/01
+v2 is active
+v3 is draft
+
+@2026/07/01
+v3 is active
+
+@2027/01/01
+v1 is deprecated
+
+@2027/07/01
+v1 is retired
+v2 is deprecated
+
+@2028/01/01
+v2 is retired
+v3 is deprecated
+
+@enduml
