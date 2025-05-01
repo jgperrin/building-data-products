@@ -1,0 +1,105 @@
+---
+schema:
+- logicalType: "object"
+  name: "Customer"
+  physicalType: "table"
+  description: ""
+  properties:
+  - logicalType: "Numeric"
+    name: "customer_id"
+    physicalType: "INT"
+    required: true
+    primaryKey: true
+  - logicalType: "String"
+    name: "first_name"
+    physicalType: "VARCHAR(255)"
+    required: false
+    primaryKey: false
+  - logicalType: "String"
+    name: "last_name"
+    physicalType: "VARCHAR(255)"
+    required: true
+    primaryKey: false
+  - logicalType: "String"
+    name: "email"
+    physicalType: "VARCHAR(255)"
+    required: true
+    primaryKey: false
+  - logicalType: "String"
+    name: "phone"
+    physicalType: "VARCHAR(20)"
+    required: false
+    primaryKey: false
+- logicalType: "object"
+  name: "Address"
+  physicalType: "table"
+  description: ""
+  properties:
+  - logicalType: "Numeric"
+    name: "address_id"
+    physicalType: "INT"
+    required: true
+    primaryKey: true
+  - logicalType: "Numeric"
+    name: "customer_id"
+    physicalType: "INT"
+    required: true
+    primaryKey: false
+  - logicalType: "String"
+    name: "street1"
+    physicalType: "VARCHAR(255)"
+    required: true
+    primaryKey: false
+  - logicalType: "String"
+    name: "street2"
+    physicalType: "VARCHAR(255)"
+    required: false
+    primaryKey: false
+  - logicalType: "String"
+    name: "city"
+    physicalType: "VARCHAR(100)"
+    required: true
+    primaryKey: false
+  - logicalType: "String"
+    name: "state"
+    physicalType: "VARCHAR(100)"
+    required: false
+    primaryKey: false
+  - logicalType: "String"
+    name: "postal_code"
+    physicalType: "VARCHAR(20)"
+    required: false
+    primaryKey: false
+  - logicalType: "String"
+    name: "country_cd"
+    physicalType: "CHAR(2)"
+    required: true
+    primaryKey: false
+  - logicalType: "Enum"
+    name: "address_type"
+    physicalType: "ENUM('Billing',"
+    required: true
+    primaryKey: false
+  - logicalType: "Unknown logical type"
+    name: "FOREIGN"
+    physicalType: "KEY"
+    required: false
+    primaryKey: false
+apiVersion: "v3.0.2"
+kind: "DataContract"
+domain: "Customer"
+name: "CustomerContract"
+description:
+  purpose: "Defines schema based on uploaded DDL"
+  usage: "DDL upload for contract generation"
+  limitations: "None"
+id: "142fc945-272c-3c89-9ca6-96741eff4a8e"
+team:
+- dateIn: "2025-04-25"
+  role: "DPO"
+  name: "Jean-Georges Perrin"
+  description: "automatically generated"
+  username: "jgp@jgp.ai2"
+version: "0.1.0"
+tenant: "QuantumClimate"
+status: "draft"
