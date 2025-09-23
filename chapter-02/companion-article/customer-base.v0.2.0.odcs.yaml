@@ -1,0 +1,47 @@
+apiVersion: "v3.0.2"
+contractCreatedTs: "2025-05-09T21:34:58.759+00:00"
+dataProduct: ""
+description:
+  purpose: "DDL upload for contract generation"
+  usage: "Analytics"
+  limitations: "None defined"
+domain: "Customer"
+id: "34cae6d7-7648-38b2-8f66-8db79e1e2ce4"
+kind: "DataContract"
+name: "CustomerContract"
+status: "draft"
+tenant: "QuantumClimate"
+version: "v0.2.0"
+
+schema:
+- logicalType: "object"
+  name: "Customer"
+  physicalName: "Customer"
+  physicalType: "table"
+  description: "Contains basic customer information"
+  properties:
+  - logicalType: "number"
+    name: "customer_id"
+    physicalName: "customer_id"
+    physicalType: "SERIAL"
+    primaryKey: true
+    required: true
+  - logicalType: "string"
+    name: "first_name"
+    physicalName: "first_name"
+    physicalType: "VARCHAR (255)"
+  - logicalType: "string"
+    name: "last_name"
+    physicalName: "last_name"
+    physicalType: "VARCHAR (255)"
+    required: true
+  - logicalType: "string"
+    name: "email"
+    physicalName: "email"
+    physicalType: "VARCHAR (255)"
+    required: true
+  - logicalType: "string"
+    name: "phone"
+    physicalName: "phone"
+    physicalType: "VARCHAR (20)"
+    description: "Phone number, assuming country code is baked in"
