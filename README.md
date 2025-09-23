@@ -1,5 +1,5 @@
-# Building Data Products
+# Stealth Project #56820BZ
 
-Companion repository for Building Data Products (O'Reilly).
+Companion repository for Stealth Project #56820BZ.
 
 
