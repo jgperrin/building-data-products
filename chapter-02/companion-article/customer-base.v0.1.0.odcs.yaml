@@ -1,45 +1,29 @@
-apiVersion: "v3.0.2"
-contractCreatedTs: "2025-05-09T21:34:58.759+00:00"
-dataProduct: ""
-description:
-  usage: "DDL upload for contract generation"
-  purpose: "Defines schema based on uploaded DDL"
-  limitations: "None"
-domain: "Customer"
-id: "34cae6d7-7648-38b2-8f66-8db79e1e2ce4"
-kind: "DataContract"
-name: "CustomerContract"
-status: "draft"
-tenant: "QuantumClimate"
-version: "v0.1.0"
+apiVersion:kind: "DataContract" # [A]
+apiVersion: "v3.1.0" # [A]
+version: "v0.1.0" # [B]
+status: "proposed" # [C]
+id: "34cae6d7-7648-38b2-8f66-8db79e1e2ce4" # [D]
 
-schema:
-- logicalType: "object"
-  name: "Customer"
-  physicalName: "Customer"
-  physicalType: "table"
-  properties:
-  - logicalType: "number"
-    name: "customer_id"
-    physicalName: "customer_id"
-    physicalType: "SERIAL"
-    primaryKey: true
-    required: true
-  - logicalType: "string"
-    name: "first_name"
-    physicalName: "first_name"
-    physicalType: "VARCHAR (255)"
-  - logicalType: "string"
-    name: "last_name"
-    physicalName: "last_name"
-    physicalType: "VARCHAR (255)"
-    required: true
-  - logicalType: "string"
-    name: "email"
-    physicalName: "email"
-    physicalType: "VARCHAR (255)"
-    required: true
-  - logicalType: "string"
-    name: "phone"
-    physicalName: "phone"
-    physicalType: "VARCHAR (20)"
+schema: # [E]
+  - name: "Customer" # [F]
+    properties: # [F]
+      - name: "customer_id" # [G]
+      - name: "first_name" # [G]
+      - name: "last_name" # [G]
+      - name: "email" # [G]
+      - name: "phone" # [G]
+  - name: "AddressType"
+    properties:
+      - name: "address_type_id"
+      - name: "address_type"
+  - name: "Address"
+    properties:
+      - name: "address_id"
+      - name: "customer_id"
+      - name: "street1"
+      - name: "street2"
+      - name: "city"
+      - name: "state"
+      - name: "postal_code"
+      - name: "country_cd"
+      - name: "address_type_id"

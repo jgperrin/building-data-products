@@ -1,0 +1,31 @@
+apiVersion: v1.0.0
+kind: DataProduct
+
+version: "v0.2.0"
+status: "active"
+name: Customer Data Product
+id: 2abf58db-8672-43a2-88fa-787e6c37be46
+
+description:
+  purpose: Enterprise view of a customer.
+
+inputPorts:
+  - name: customerCrm
+    description: "Customer as defined in the CRM"
+    contractId: dbb7b1eb-7628-436e-8914-2a00638ba6db
+
+outputPorts:
+  - name: customerTable
+    description: "Customer Table"
+    contractId: 34cae6d7-7648-38b2-8f66-8db79e1e2ce4
+    sbom: # The SBOM can/should be at the version level [Optional]
+      - type: "external" # default
+        url: "https://mysbomserver/mysbom"
+    inputContracts: # or dependencies [Optional]
+      - id: dbb7b1eb-7628-436e-8914-2a00638ba6db
+
+team:
+  name: "Customer Team"
+  members:
+    - username: "ceastwood"
+      role: "DPO"

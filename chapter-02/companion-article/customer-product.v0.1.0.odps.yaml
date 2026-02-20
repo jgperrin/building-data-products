@@ -1,0 +1,15 @@
+apiVersion: v1.0.0
+kind: DataProduct
+
+version: "v0.1.0" # [B]
+status: "proposed" # [C]
+name: Customer Data Product
+id: 2abf58db-8672-43a2-88fa-787e6c37be46
+
+description:
+  purpose: Enterprise view of a customer.
+
+outputPorts:
+- name: customerTable
+  description: "Customer Table"
+  contractId: 34cae6d7-7648-38b2-8f66-8db79e1e2ce4
