@@ -1,0 +1,44 @@
+flowchart TB
+ subgraph s1["1 - Find"]
+        C["Read the product card<br>trust signals: Data QoS, maturity, freshness"]
+  end
+ subgraph s2["2 - Try"]
+        D["Inspect sample data,<br>copy the connection snippet"]
+  end
+ subgraph s3["3 - Request access"]
+        E{"Access level<br>in the contract?"}
+        F["One-click: access granted"]
+        G["Approval flow:<br>approver reviews the purpose"]
+        X(["Journey ends"])
+  end
+ subgraph s4["4 - Subscribe"]
+        H["Auto-subscribed on access:<br>pinned to a version,<br>added to Slack and newsletter"]
+  end
+ subgraph s5["5 - Use"]
+        I["First query: wire into the churn model"]
+  end
+    A(["Juliette searches the marketplace"]) --> B{"Product status?"}
+    B -- Active --> C
+    B -- Retired --> R["Redirect to successor<br>(authoritativeDefinitions / canonicalUrl)<br>old listing ranked low, capped at Level 0"]
+    R --> C
+    C --> D
+    D --> E
+    E -- Low sensitivity, no PII --> F
+    E -- PII / regulatory --> G
+    G -- Approved --> F
+    G -- Declined --> X
+    F --> H
+    H --> I
+    I --> J["Stays informed:<br>breaking-change and deprecation notices"]
+    J -. major version / end of life .-> B
+
+     X:::endNode
+     R:::retired
+    classDef retired fill:#fde2e1,stroke:#c0392b,color:#7b241c
+    classDef endNode fill:#eeeeee,stroke:#999999,color:#FFFFFF
+    style X color:#c0392b
+        style s1 fill:#BBDEFB
+        style s2 fill:#BBDEFB
+    style s3 fill:#BBDEFB
+    style s4 fill:#BBDEFB
+        style s5 fill:#BBDEFB

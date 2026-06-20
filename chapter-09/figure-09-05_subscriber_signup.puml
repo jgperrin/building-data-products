@@ -1,0 +1,22 @@
+@startuml figure_9-5_subscriber_signup
+' Chapter 9 - Simplified subscriber sign-up
+' Juliette subscribes; the marketplace records her so she lands on the notification list.
+
+skinparam sequenceMessageAlign center
+skinparam defaultFontName Helvetica
+skinparam ParticipantPadding 14
+
+participant "Juliette /\nConsumer"    as JM
+participant "Beth /\nMarketplace"     as MP
+participant "Data Product/\nSidecar"  as SC
+
+JM ->  MP : Sign up to the data product
+MP ->  SC : OOCS: record subscriber
+SC --> MP : OORS: subscribed
+
+note over SC
+  Juliette is now on the
+  notification list.
+end note
+
+@enduml

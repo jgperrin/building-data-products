@@ -1,0 +1,20 @@
+@startuml figure_9-4_registration_handshake
+' Chapter 9 - Simplified registration handshake
+' Callback to the full OOCS/OORS flow in Chapter 7 (Figure 7-7).
+
+skinparam sequenceMessageAlign center
+skinparam defaultFontName Helvetica
+skinparam ParticipantPadding 14
+
+participant "Data Product/\nSidecar" as SC
+participant "Beth /\nMarketplace"    as MP
+
+SC ->  MP : OOCS: register (on startup)
+MP --> SC : OORS: acknowledged
+
+note over SC, MP
+  The product is now on the map;
+  active metadata keeps flowing.
+end note
+
+@enduml

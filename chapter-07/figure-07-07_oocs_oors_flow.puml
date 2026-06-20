@@ -1,0 +1,50 @@
+@startuml figure_7-7_oocs_oors_flow
+' Figure 7-7 - The OOCS and OORS flow
+' Concrete "be46" walkthrough of Table 7-7, grouped into the six phases.
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam defaultFontName Helvetica
+skinparam ParticipantPadding 12
+skinparam BoxPadding 8
+hide footbox
+
+title Figure 7-7 - The OOCS and OORS flow
+
+participant "Data Product's\nSidecar"        as SC
+participant "Beth /\nMarketplace"             as MP
+participant "ODCS\nContract"                  as DC
+participant "DQ Tool\n(JoeThePlumberFixer, Soda, GX, dbt ...)"    as DQ
+participant "metaDb"                          as DB
+participant "Observability\nPort"             as OP
+participant "Juliette /\nMonitoring"          as JM
+
+== 1. Sidecar registers ==
+SC ->  MP : 10. Register data product  [OOCS register]
+note right of MP: confirmation via Kafka topic
+MP --> SC : Ack registration  [OORS]
+
+== 2. Marketplace sends a command ==
+MP ->  SC : 20. Request quality check  [OOCS configure]
+
+== 3. Sidecar receives and executes ==
+SC ->  DC : 30. Read quality rules  [ODCS]
+SC ->  DQ : 31. Delegate checks on Customer.email  [OOCS]
+DQ --> SC : 32. Return raw check results  [OORS]
+
+== 4. metaDb stores the results ==
+SC ->  DB : 40. Store results  [OORS]
+
+== 5. Sidecar returns the results (optional) ==
+note over SC, MP: REST response
+SC ->  MP : 50. Completeness: pass (2.1%, threshold 5%)  [OORS]
+SC ->  MP : 51. Conformity: fail (14 rows, threshold 0)  [OORS]
+
+== 6. Observability port exposes (on demand) ==
+JM ->  OP : 60. Query current state
+OP ->  DB : 61. Read latest results
+DB --> OP : 62. Return OORS results  [OORS]
+OP --> JM : 63. Return current state  [OORS]
+
+@enduml

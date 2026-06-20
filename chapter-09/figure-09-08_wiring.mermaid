@@ -1,0 +1,9 @@
+
+%% Figure 9-7 - One ODCS contract feeds both context and enforced output schema.
+flowchart LR
+  C[Claude] -- JSON-RPC --> M[next-mcp]
+  M -- "resources/read<br/>(ODCS as context)" --> C
+  M -- REST --> S[next-services]
+  S -. serves .-> O[(events.odcs.yaml<br/>ODCS v3.1.0)]
+  O -- "OdcsToJsonSchemaConverter" --> J[JSON Schema]
+  J -- "Tool.outputSchema" --> M

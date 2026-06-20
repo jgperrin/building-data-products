@@ -1,0 +1,19 @@
+@startuml figure_9-6_notify_subscribers
+' Chapter 9 - Simplified subscriber notification
+' A change triggers a "notify subscribers" command; the sidecar pushes the alert
+' out through the observability port.
+
+skinparam sequenceMessageAlign center
+skinparam defaultFontName Helvetica
+skinparam ParticipantPadding 14
+
+participant "Beth /\nMarketplace"     as MP
+participant "Data Product/\nSidecar"  as SC
+participant "Notification\nMechanism"     as OP
+participant "Juliette /\nConsumer"    as JM
+
+MP ->  SC : OOCS: notify subscribers\n(something changed)
+SC ->  OP : Push alert
+OP ->  JM : Change notification /\nEvent
+
+@enduml

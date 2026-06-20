@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant C as Claude
+  participant M as next-mcp
+  participant S as next-services
+  M->>M: boot: fetch contract, derive JSON Schema
+  C->>M: resources/read events.odcs.yaml
+  M-->>C: ODCS contract (types + semantics)
+  C->>M: tools/call list_events
+  M->>S: GET /api/v1/events
+  S-->>M: JSON page
+  M->>M: validate vs contract-derived schema
+  M-->>C: structured content (schema-conformant)
