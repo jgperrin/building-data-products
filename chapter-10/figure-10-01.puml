@@ -1,0 +1,26 @@
+@startuml
+actor "Juliette" as J
+
+box "Customer Data Product" #LightBlue
+participant "Sidecar\n(enforcement point)" as S
+database "Data" as D
+database "metaDb" as M
+end box
+participant "IdP" as I
+participant "Policy\nservice" as P
+
+J  ->  S : query Customer
+activate S
+S  ->  I ** : verify token
+I --> S : identity + roles
+S  ->  P ** : decide (roles, contract, columns, purpose)
+P --> S : allow / deny / mask, per column
+S  ->  D : read only the \nallowed or encrypted columns
+activate S
+D --> S : rows
+S  -->  S : apply masking for sensitive rows\nwithout encrypted sibling
+deactivate S
+S  ->  M : log decision (who, what, purpose, outcome)
+S --> J : result, masked where required
+deactivate S
+@enduml

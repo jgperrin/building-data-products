@@ -1,0 +1,12 @@
+@startuml
+!theme vibrant
+
+participant "Management\nClient" as client
+participant "Customer\nData Product" as dp
+
+client -> dp : Status?
+dp -> client : SLA on latency is broken, expected 24 hours now 48 hours
+client -> dp : Root cause?
+dp -> client : Schema change affecting output port "raw" v1.0.0.
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml dp-self-installation
+title A data product installing and registering itself (via the control center)
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+
+actor "Cindy\n(engineer)" as CINDY
+participant "Sidecar" as SC
+participant "Control center\n(hub)" as CC
+participant "Source control\n(ODPS, ODCS, SBOM)" as SCM
+participant "System\n(servers, storage,\npipeline)" as SYS
+participant "Marketplace" as MP
+actor "Users\n(Juliette, Beth...)" as USERS
+
+CINDY -> SC : install & deploy sidecar
+
+== Boot ==
+SC -> CC : request own descriptors
+CC -> SCM : fetch (contract is source of truth)
+SCM --> CC : ODPS, ODCS, SBOM
+CC --> SC : descriptors
+note over SC, SCM : The sidecar never talks to source control directly. The control center or the marketplace is the hub.
+SC -> SYS : locate & connect components\nfrom the server block
+SC -> SC : start the data product
+
+== Register (architecture choice) ==
+alt Sidecar registers directly
+  SC -> MP : OOCS register
+  MP --> SC : OORS ack
+else Control center brokers the registration
+  SC -> CC : OOCS register
+  CC -> MP : forward register
+  MP --> CC : OORS ack
+  CC --> SC : ack
+end
+
+@enduml

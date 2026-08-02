@@ -1,0 +1,52 @@
+@startuml bitol-standards-family
+
+title The Bitol standards family — existing, experimenting, and future
+
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam rectangle {
+  BorderThickness 1
+  roundCorner 12
+}
+skinparam RectangleBackgroundColor<<existing>> #E1F5EE
+skinparam RectangleBorderColor<<existing>>     #0F6E56
+skinparam RectangleBackgroundColor<<experimenting>>   #E6F1FB
+skinparam RectangleBorderColor<<experimenting>>       #185FA5
+skinparam RectangleBackgroundColor<<future>>   #EEEDFE
+skinparam RectangleBorderColor<<future>>       #534AB7
+
+' ---- Descriptor core (the only shipping standards) ----
+rectangle "Descriptor core" <<existing>> {
+  rectangle "**ODCS**\nthe promise · contract" as ODCS <<existing>>
+  rectangle "**ODPS**\nthe delivery · product" as ODPS <<existing>>
+  ODPS -[#0F6E56]-> ODCS : wraps
+}
+
+' ---- Active runtime pair (in development) ----
+rectangle "ops" <<experimenting>> {
+rectangle "**OOCS**\ncommands in · RFC-0040" as OOCS <<experimenting>>
+rectangle "**OORS**\nresults out · RFC-0018" as OORS <<experimenting>>
+} 
+
+' ---- Extension standards (proposed / future) ----
+rectangle "**OMMS**\nmeasures maturity · RFC-0037" as OMMS <<experimenting>>
+rectangle "**OMDS**\nsafe evolution · RFC-0039"    as OMDS <<experimenting>>
+rectangle "**OSDS**\nshared meaning · RFC-0044"    as OSDS <<future>>
+rectangle "**OAAS**\naccess grants · RFC-0056"     as OAAS <<future>>
+
+' ---- Relationships (line style = maturity) ----
+OOCS <.[#185FA5]. ODPS : command out
+ODPS <.[#185FA5]. OORS : result in
+
+OMMS .[#534AB7,dotted].> ODPS : measures
+OMMS .[#534AB7,dotted].> ODCS : measures
+OMDS .[#534AB7,dotted].> ODPS : evolves
+OSDS .[#534AB7,dotted].> ODPS : gives meaning
+OAAS .[#534AB7,dotted].> ODPS : gates access
+
+legend bottom left
+  <back:#E1F5EE>        </back>  **existing** — ODCS, ODPS
+  <back:#E6F1FB>        </back>  **experimenting** — OOCS, OORS, OMMS, OMDS
+  <back:#EEEDFE>        </back>  **future** — OSDS, OAAS
+endlegend
+@enduml

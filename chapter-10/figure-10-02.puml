@@ -1,0 +1,25 @@
+@startuml
+actor "Juliette" as J
+
+box "Customer Data Product" #LightBlue
+participant "Sidecar\n(router + enforcement)" as S
+database "Data\n(role-scoped views)" as D
+database "metaDb" as M
+end box
+participant "IdP" as I
+participant "Policy\nservice" as P
+
+J  ->  S : query Customer
+activate S
+S  ->  I ** : verify token
+I --> S : identity + roles
+S  ->  P ** : resolve view (roles, contract, purpose)
+P --> S : view = customer_pii_masked
+S  ->  D : SELECT * FROM customer_pii_masked
+activate D
+D --> S : rows, already masked by the view
+deactivate D
+S  ->  M : log decision (who, what, purpose, view)
+S --> J : result
+deactivate S
+@enduml

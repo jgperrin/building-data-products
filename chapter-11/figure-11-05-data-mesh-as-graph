@@ -1,0 +1,59 @@
+@startuml data-mesh-graph
+title Ms. Customer Data Product completing her answer across the mesh
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam hexagon {
+  roundCorner 14
+  BorderThickness 1
+}
+
+skinparam HexagonBackgroundColor<<producer>> #E1F5EE
+skinparam HexagonBorderColor<<producer>>     #0F6E56
+skinparam HexagonBackgroundColor<<consumer>> #EEEDFE
+skinparam HexagonBorderColor<<consumer>>     #534AB7
+skinparam HexagonBackgroundColor<<smart>>    #FAEEDA
+skinparam HexagonBorderColor<<smart>>        #854F0B
+
+skinparam rectangle<<contract>> {
+  BackgroundColor Transparent
+  BorderColor Transparent
+  FontColor #5F5E5A
+  FontSize 13
+}
+
+' ---- Nodes: data products (hexagons) ----
+hexagon "\n\n**CRM**\nproducer-aligned\n\n\n\n\n"            as CRM     <<producer>>
+hexagon "\n\n**Orders**\nproducer-aligned\n\n\n\n\n"         as ORDERS  <<producer>>
+hexagon "\n\n**Returns**\nproducer-aligned\n\n\n\n\n"         as RETURNS  <<producer>>
+hexagon "\n\n**Weather**\nproducer-aligned\n\n\n\n\n"        as WEATHER <<producer>>
+hexagon "\n\n**Ms. Customer**\n**Data Product**\nself-completing\n\n\n" as MSC <<smart>>
+hexagon "\n\n**Churn model**\nconsumer-aligned\n\n\n\n\n"    as CHURN   <<consumer>>
+
+' ---- Edge nodes: data contracts (triangles) ----
+rectangle "|>\n**#2ce4**\nv1.3.0" as K1 <<contract>>
+rectangle "|>\n**#9ac9**\nv2.0.0" as K2 <<contract>>
+rectangle "|>\n**#3b2e**\nv0.4.0" as K3 <<contract>>
+rectangle "|>\n**#7f1a**\nv1.0.0" as K4 <<contract>>
+rectangle "|>\n**#5aea**\nv1.1.0" as K5 <<contract>>
+
+' ---- Wiring: every hop is a governed output -> contract -> input ----
+CRM     --> K1
+K1      --> MSC
+ORDERS  --> K2
+K2      --> MSC
+WEATHER --> K3
+K3      --> CHURN
+MSC     --> K4
+K4      --> CHURN
+RETURNS --> K5
+K5      --> MSC
+
+legend bottom left
+  Hexagon = data product
+  |> Triangle = data contract (governed output -> input)
+  <back:#E1F5EE>      </back>  producer-aligned
+  <back:#EEEDFE>      </back>  consumer-aligned
+  <back:#FAEEDA>      </back>  self-completing (smart)
+endlegend
+@enduml

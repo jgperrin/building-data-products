@@ -1,0 +1,84 @@
+@startuml figure-11-02-upcycling-flow
+' Figure 11-2 - The upcycling flow: from an existing Teradata
+' transformation to a draft data product in the marketplace.
+' The script is referenced, not rewritten.
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam activity {
+  BorderColor black
+  BackgroundColor white
+}
+
+|Agent|
+start
+:1. Read the transformation script
+(BTEQ / stored procedure);
+note right
+  Extracts source tables,
+  columns used, join logic,
+  target table
+end note
+
+:2. Reconcile source tables
+with existing contracts;
+
+|Marketplace|
+if (Contract exists for source table?) then  (no)
+  :Flag gap;
+  |Agent|
+  :Draft minimal source contract
+  from DDL (as with DDL / Chapter 2);
+else  (yes)
+|Marketplace|
+  :Reference as input contract;
+endif
+
+|Agent|
+:3. Draft the output contract (ODCS)
+schema, types, inferred descriptions,
+proposed tags;
+note right
+  Proposals, not verdicts:
+  a pii tag is suggested,
+  never self-approved
+end note
+
+:4. Bundle the product (ODPS)
+output port + input ports
++ team block awaiting names;
+
+:5. Point the SBOM at the
+existing script in source control;
+note right  
+  The script is referenced,
+  not rewritten.
+  Lineage by design:
+    input contracts 
+  + SBOM
+  + output contract
+  --------------------------------------------------------------------------------------------------------------
+    lineage
+end note
+
+:6. Register in the marketplace;
+
+|Marketplace|
+:Draft data product visible
+status: draft
+pre-scored against OMMS;
+
+|Humans (Beth + Cindy)|
+:Review tags, name an owner,
+set SLAs, verify lineage;
+note right
+  The agent does not
+  have signing pivileges:
+  humans (in the loop) 
+  own the promise
+end note
+
+|Marketplace|
+:Promote to active;
+stop
+@enduml

@@ -1,0 +1,30 @@
+@startuml file-own-paperwork
+title Automation proposes, Beth approves
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+
+participant "Source system" as SRC
+participant "Sidecar" as SC
+participant "Contract #2ce4\nin design tool" as K
+actor "Beth\n(owner)" as BETH
+participant "Marketplace" as MP
+
+SRC -> SC : schema change detected\n(new column)
+SC -> K : read current contract
+SC -> SC : draft diff,\nsuggest semver bump
+SC -> BETH : propose v1.3.0\n(clean diff + changelog)
+
+alt approved
+  BETH -> MP : publish v1.3.0
+  MP --> SC : OORS: registered
+else rejected / edited
+  BETH -> SC : revise or discard
+end
+
+note over SC, MP
+  Data product drafts the change. 
+  Human approves   the irreversible.
+end note
+@enduml
