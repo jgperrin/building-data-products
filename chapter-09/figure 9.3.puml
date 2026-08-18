@@ -1,0 +1,52 @@
+@startsalt
+skinparam dpi 150
+!option handwritten true
+<style>
+saltDiagram {
+  BackgroundColor beige
+}
+</style>
+{+
+.
+<b>Request Access — Customer Data Product</b>
+contract #2ce4  ·  v1.2.0  ·  domain: Customer
+.
+~~
+.
+Select role:
+.
+{
+  (X)         Read including PII (email, phone)  |               Approval required |Role: customer_read_pii
+  
+  ()     Read non-sensitive only        | Instant access | Role: customer_read_internal 
+}
+~~
+{
+  .
+  Purpose         |{SI
+    Churn model for Q3 retention          
+    .
+      
+    "                                        "
+   }
+  
+  Intended use    | ^Analytics / Modeling^
+  
+  Access window   | ^90 days^
+  .
+  Requester       | "juliette@climatequantum.io              "
+}
+.
+[X] I will not export PII off-platform
+.
+~~
+.
+Approval path:   
+Beth (Owner)   >>   Data Privacy Office
+.
+{
+  [  Cancel  ] | . | [  Submit Request >>  ]
+}
+}
+
+@endsalt

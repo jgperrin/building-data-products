@@ -4,8 +4,8 @@ concise "v2.0.0" as v2
 concise "v3.0.0" as v3 
 concise "v3.1.0" as v3_1
 
-scale 31536000 as 180 pixels
-use date format "yyyy-MM"
+scale 31536000 as 160 pixels
+use date format "yyyy-MMM"
 
 v1 is proposed
 
